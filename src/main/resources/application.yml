@@ -1,0 +1,55 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: password
+    url: jdbc:mysql://120.77.203.221:3306/documentManagementSystem?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+  thymeleaf:
+    cache: false
+    check-template: false
+    mode: LEGACYHTML5
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+      location: d:/sxito
+#  redis:
+#      database: 0
+#      host: 47.106.221.243
+#      port: 6379
+#      password: xljredis
+#      # 连接池最大连接数（使用负值表示没有限制）
+#      pool:
+#        max-active: 600
+#      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+#        max-wait: -1
+#      # 连接池中的最大空闲连接
+#        max-idle: 300
+#      # 连接池中的最小空闲连接
+#        min-idle: 0
+#      # 连接超时时间（毫秒）
+#      timeout: 5000
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/, file:${spring.http.multipart.location}
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: top.catoy.docmanagement.domain
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+com:
+  sxito:
+    custom:
+      windows-path: d:/sxito
+      linux-path: /sxito
+      keys: fourzeroeight
+#jwt:
+#  secret: xljSecret
+#  header: token
+#  validity-time: 604800000
+server:
+  port: 80
+#  session:
+#    timeout: 3600
+
