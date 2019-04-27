@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.catoy.docmanagement.mapper.UserGroupMapper">
+    <resultMap id="UserGroupMap" type="top.catoy.docmanagement.domain.UserGroup">
+        <id column="group_id" property="groupId"></id>
+        <result column="group_name" property="groupName"></result>
+        <result column="group_permission" property="groupPermission"></result>
+    </resultMap>
+
+    <select id="getUserGroupById" resultMap="UserGroupMap">
+        SELECT * FROM `userGroup` WHERE group_id = #{id}
+    </select>
+</mapper>
