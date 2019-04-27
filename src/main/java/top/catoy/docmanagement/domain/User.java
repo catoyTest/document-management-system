@@ -13,6 +13,12 @@ public class User {
     private int departmentId;
     private int userLock;
 
+    private String role;
+
+    private String permission;
+
+
+
     public int getUserId() {
         return userId;
     }
@@ -61,6 +67,22 @@ public class User {
         this.userLock = userLock;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -70,6 +92,8 @@ public class User {
                 ", groupId=" + groupId +
                 ", departmentId=" + departmentId +
                 ", userLock=" + userLock +
+                ", role='" + role + '\'' +
+                ", permission='" + permission + '\'' +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import top.catoy.docmanagement.domain.User;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -46,19 +47,49 @@ public class JWTUtil {
         }
     }
 
+
+    //获取用户信息
+    public static User getUserInfo(String token){
+        try{
+            DecodedJWT jwt = JWT.decode(token);
+            String username = jwt.getClaim("username").asString();
+            String password = jwt.getClaim("password").asString();
+            int departmentId = jwt.getClaim("DepartmentId").asInt();
+            String role = jwt.getClaim("role").asString();
+            String permissions = jwt.getClaim("permission").asString();
+            int isLock = jwt.getClaim("isLock").asInt();
+
+            User user = new User();
+            user.setUserName(username);
+            user.setUserPassword(password);
+            user.setDepartmentId(departmentId);
+            user.setRole(role);
+            user.setPermission(permissions);
+            user.setUserLock(isLock);
+            return user;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
     /**
      * 生成签名,5min后过期
-     * @param username 用户名
+     * @param user 用户
      * @param secret 用户的密码
      * @return 加密的token
      */
-    public static String sign(String username, String secret) {
+    public static String sign(User user, String secret) {
         try {
             Date date = new Date(System.currentTimeMillis()+EXPIRE_TIME);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             // 附带username信息
             return JWT.create()
-                    .withClaim("username", username)
+                    .withClaim("username", user.getUserName())
+                    .withClaim("password",user.getUserPassword())
+                    .withClaim("DepartmentId",user.getDepartmentId())
+                    .withClaim("role",user.getRole())
+                    .withClaim("permission",user.getPermission())
+                    .withClaim("isLock",user.getUserLock())
                     .withExpiresAt(date)
                     .sign(algorithm);
         } catch (UnsupportedEncodingException e) {

@@ -2,6 +2,11 @@ package top.catoy.docmanagement.domain;
 
 public class ResponseBean {
 
+    public static int SUCCESS = 200;
+    public static int FAILURE = 0;
+    public static int ERROR = -1;
+    public static int NOT_LEGAL = -100;
+
     // http 状态码
     private int code;
 

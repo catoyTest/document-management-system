@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import top.catoy.docmanagement.config.exception.UnauthorizedException;
+import top.catoy.docmanagement.config.shiro.JWTToken;
 import top.catoy.docmanagement.domain.ResponseBean;
 import top.catoy.docmanagement.domain.User;
 import top.catoy.docmanagement.service.UserService;
@@ -33,15 +34,14 @@ public class WebController {
     public ResponseBean login(@RequestParam("username") String username,
                               @RequestParam("password")String password) {
         System.out.println("用户名:"+username+"密码:"+password);
-        User user = userService.getUserByName(username);
-        if(user == null){
-            return new ResponseBean(200, "没有该用户", null);
+        ResponseBean result = userService.Login(username,password);
+        if(result.getMsg().equals("登录成功")){
+            String token = JWTUtil.sign((User) result.getData(),password);
+            System.out.println(JWTUtil.getUserInfo(token));
+
+            return new ResponseBean(ResponseBean.SUCCESS, "Login success", JWTUtil.sign((User) result.getData(), password));
         }else {
-            if (user.getUserPassword().equals(password)) {
-                return new ResponseBean(200, "Login success", JWTUtil.sign(username, password));
-            } else {
-                throw new UnauthorizedException();
-            }
+            return new ResponseBean(ResponseBean.FAILURE,"登录失败",null);
         }
 
         //获取subject

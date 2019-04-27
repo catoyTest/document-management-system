@@ -1,5 +1,6 @@
 package top.catoy.docmanagement.service;
 
+import top.catoy.docmanagement.domain.ResponseBean;
 import top.catoy.docmanagement.domain.User;
 
 /**
@@ -9,4 +10,7 @@ import top.catoy.docmanagement.domain.User;
  **/
 public interface UserService{
    User getUserByName(String userName);
+
+
+   ResponseBean Login(String username, String password);
 }
