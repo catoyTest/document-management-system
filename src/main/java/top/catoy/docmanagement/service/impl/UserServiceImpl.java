@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private UserGroupMapper userGroupMapper;
 
     @Override
-    public User getUserByName(String userName) throws RuntimeException{
+    public User getUserByName(String userName) {
         try {
             System.out.println(userMapper.getUserByName(userName));
             User user = userMapper.getUserByName(userName);
@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
 
             return userMapper.getUserByName(userName);
         }catch (RuntimeException r){
+            r.printStackTrace();
             return null;
         }
     }
