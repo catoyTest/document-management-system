@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.catoy.docmanagement.mapper.LogMapper">
+
+    <resultMap id="LogMap" type="Log">
+        <id column="id" property="id"></id>
+        <result column="log_id" property="logId"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="op_name" property="opName"></result>
+        <result column="op_date" property="opDate"></result>
+        <result column="op_label" property="opLabel"></result>
+    </resultMap>
+
+    <select id="selectLogById" parameterType="int" resultMap="LogMap">
+        SELECT * FROM log WHERE log_id = #{logId}
+    </select>
+
+    <select id="getAllLogs" resultMap="LogMap">
+        SELECT * FROM log
+    </select>
+
+    <insert id="insertLog" parameterType="Log" useGeneratedKeys="true" keyProperty="logId">
+        INSERT INTO log(user_id,op_name,op_label) VALUES(#{userId},#{opName},#{opLabel})
+    </insert>
+
+</mapper>

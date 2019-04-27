@@ -16,11 +16,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
     @Override
-    public User getUserByName(String userName) throws RuntimeException{
+    public User getUserByName(String userName) {
         try {
             System.out.println(userMapper.getUserByName(userName));
             return userMapper.getUserByName(userName);
         }catch (RuntimeException r){
+            r.printStackTrace();
             return null;
         }
     }

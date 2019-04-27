@@ -1,13 +1,13 @@
 package top.catoy.docmanagement.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ import top.catoy.docmanagement.utils.JWTUtil;
 @RestController
 public class WebController {
 
-    private static final Logger LOGGER = LogManager.getLogger(WebController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
 
     private UserService userService;
 
@@ -32,7 +32,7 @@ public class WebController {
     @PostMapping("/login")
     public ResponseBean login(@RequestParam("username") String username,
                               @RequestParam("password")String password) {
-        System.out.println("用户名:"+username+"密码:"+password);
+
         User user = userService.getUserByName(username);
         if(user == null){
             return new ResponseBean(200, "没有该用户", null);

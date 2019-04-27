@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.catoy.docmanagement.mapper.DepartmentMapper">
+
+    <resultMap id="DepartmentMap" type="Department">
+        <id column="id" property="id"></id>
+        <result column="department_id" property="departmentId"></result>
+        <result column="department_name" property="departmentName"></result>
+        <result column="super_id" property="superId"></result>
+    </resultMap>
+
+    <select id="getAllDepartments" resultMap="DepartmentMap">
+        SELECT * FROM department
+    </select>
+
+    <insert id="insertDepartment" parameterType="Department" keyProperty="departmentId" useGeneratedKeys="true">
+        INSERT INTO department(department_name,super_id) VALUES(#{departmentName},#{superId})
+    </insert>
+
+</mapper>
