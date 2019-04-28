@@ -1,6 +1,7 @@
 package top.catoy.docmanagement.service.impl;
 
-import ch.qos.logback.classic.pattern.SyslogStartConverter;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.catoy.docmanagement.domain.ResponseBean;
@@ -9,6 +10,8 @@ import top.catoy.docmanagement.domain.UserGroup;
 import top.catoy.docmanagement.mapper.UserGroupMapper;
 import top.catoy.docmanagement.mapper.UserMapper;
 import top.catoy.docmanagement.service.UserService;
+
+import java.util.List;
 
 /**
  * @description:
@@ -23,6 +26,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserGroupMapper userGroupMapper;
 
+
     @Override
     public User getUserByName(String userName) {
         try {
@@ -34,6 +38,18 @@ public class UserServiceImpl implements UserService {
         }catch (RuntimeException r){
             r.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public ResponseBean getAllUsers() {
+        PageHelper.startPage(1, 1);
+        List<User> users = userMapper.getAllUsers();
+        PageInfo<User> pageInfo = new PageInfo<>(users);
+        if(users!=null && users.size()>0){
+            return new ResponseBean(ResponseBean.SUCCESS,"查询成功",pageInfo);
+        }else {
+            return new ResponseBean(ResponseBean.FAILURE,"查询失败",null);
         }
     }
 
