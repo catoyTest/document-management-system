@@ -41,7 +41,7 @@ mybatis:
 com:
   sxito:
     custom:
-      windows-path: d:/sxito
+      windows-path: d://sxito/
       linux-path: /sxito
       keys: fourzeroeight
 #jwt:
