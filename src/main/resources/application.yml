@@ -52,4 +52,12 @@ server:
   port: 8080
 #  session:
 #    timeout: 3600
+#
+#pagehelper:
+#    helperDialect: mysql
+#    reasonable: true
+#    supportMethodsArguments: true
+#    params: count=countSql
+#    autoDialect: true
+#    closeConn: true
 

@@ -11,12 +11,12 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import top.catoy.docmanagement.config.exception.UnauthorizedException;
-import top.catoy.docmanagement.config.shiro.JWTToken;
 import top.catoy.docmanagement.domain.ResponseBean;
 import top.catoy.docmanagement.domain.User;
 import top.catoy.docmanagement.service.UserService;
 import top.catoy.docmanagement.utils.JWTUtil;
+
+import java.util.List;
 
 @RestController
 public class WebController {
@@ -55,6 +55,17 @@ public class WebController {
 //        }catch (IncorrectCredentialsException e){
 //            return new ResponseBean(500, "密码错误", null);
 //        }
+    }
+
+    @GetMapping("/getAllUsers")
+    public ResponseBean getAllUsers(){
+        ResponseBean result = userService.getAllUsers();
+        System.out.println(result.getData());
+        if(result.getMsg().equals("查询成功")) {
+            return result;
+        }else {
+            return result;
+        }
     }
 
     @GetMapping("/article")
