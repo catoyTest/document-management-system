@@ -8,14 +8,20 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import top.catoy.docmanagement.domain.ResponseBean;
 import top.catoy.docmanagement.domain.User;
 import top.catoy.docmanagement.service.UserService;
+import top.catoy.docmanagement.utils.FileDownLoadUtil;
 import top.catoy.docmanagement.utils.JWTUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.List;
 
 @RestController
@@ -101,5 +107,10 @@ public class WebController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseBean unauthorized() {
         return new ResponseBean(401, "Unauthorized", null);
+    }
+
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public void Download(HttpServletResponse res) {
+        FileDownLoadUtil.Download(res);
     }
 }

@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.catoy.docmanagement.domain.Department;
+import top.catoy.docmanagement.domain.DocLabel;
 import top.catoy.docmanagement.domain.Log;
 import top.catoy.docmanagement.mapper.DepartmentMapper;
+import top.catoy.docmanagement.mapper.DocLabelMapper;
 import top.catoy.docmanagement.mapper.LogMapper;
+import top.catoy.docmanagement.service.DocLabelService;
 import top.catoy.docmanagement.service.LogService;
 
 import java.util.List;
@@ -24,6 +27,12 @@ public class DocManagementApplicationTests {
 
     @Autowired
     private LogService logService;
+
+    @Autowired
+    private DocLabelMapper docLabelMapper;
+
+    @Autowired
+    private DocLabelService docLabelService;
 
     @Test
     public void contextLoads() {
@@ -62,6 +71,58 @@ public class DocManagementApplicationTests {
         departmentMapper.insertDepartment(department);
         departmentMapper.insertDepartment(department1);
         System.out.println("得到所有部门信息"+departmentMapper.getAllDepartments().toString());
+    }
+
+    @Test
+    public void testDocLabelMapper(){
+        DocLabel docLabel = new DocLabel();
+        DocLabel docLabelNew = new DocLabel();
+        docLabel.setDocLabelName("图片");
+        docLabelNew.setDocLabelName("视频");
+
+        int sum = docLabelMapper.insertLabel(docLabel);
+        System.out.println(docLabel.toString());
+        if(sum > 0){
+            System.out.println("----------标签插入成功");
+        }else{
+            System.out.println("----------标签插入失败");
+        }
+
+//        List<DocLabel> docLabels = docLabelMapper.getAllDocLabels();
+//        if(docLabels != null){
+//            System.out.println("----------查询成功");
+//            System.out.println(docLabels.toString());
+//        }else{
+//            System.out.println("----------查询失败");
+//        }
+//
+//        int sum3 = docLabelMapper.editDocLabel(docLabelNew);
+//        if(sum3 > 0){
+//            System.out.println("----------标签修改成功");
+//        }else{
+//            System.out.println("----------标签修改失败");
+//        }
+//
+//        int sum2 = docLabelMapper.delDocLabel(docLabel);
+//        if(sum2 > 0){
+//            System.out.println("----------标签删除成功");
+//        }else{
+//            System.out.println("----------标签删除失败");
+//        }
+    }
+
+    @Test
+    public void testDocLabelService(){
+//        DocLabel docLabel = new DocLabel();
+//        DocLabel docLabelNew = new DocLabel();
+//        docLabel.setDocLabelName("图片");
+//        docLabelNew.setDocLabelName("视频");
+//        System.out.println(docLabelService.insertDocLabel(docLabel).toString());
+//        System.out.println(docLabelService.editDocLabel(docLabelNew).toString());
+//        docLabel = docLabelNew;
+//        System.out.println(docLabelService.getAllDocLabels().toString());
+//        System.out.println(docLabelService.delDocLabel(docLabel).toString());
+        System.out.println(docLabelService.getSonDocLabels(19));
     }
 
 }
