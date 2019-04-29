@@ -4,9 +4,9 @@
         "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.catoy.docmanagement.mapper.LogMapper">
 
-    <resultMap id="LogMap" type="Log">
-        <id column="id" property="id"></id>
-        <result column="log_id" property="logId"></result>
+    <resultMap id="LogMap" type="top.catoy.docmanagement.domain.Log">
+        <id column="log_id" property="logId"></id>
+        <!--<result column="log_id" property="logId"></result>-->
         <result column="user_id" property="userId"></result>
         <result column="op_name" property="opName"></result>
         <result column="op_date" property="opDate"></result>
