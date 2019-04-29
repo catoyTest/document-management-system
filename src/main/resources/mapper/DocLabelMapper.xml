@@ -5,8 +5,8 @@
 <mapper namespace="top.catoy.docmanagement.mapper.DocLabelMapper">
 
     <resultMap id="DocLabelMap" type="DocLabel">
-        <id column="id" property="id"></id>
-        <result column="docLabel_id" property="docLabelId"></result>
+        <id column="docLabel_id" property="docLabelId"></id>
+        <!--<result column="docLabel_id" property="docLabelId"></result>-->
         <result column="docLabel_name" property="docLabelName"></result>
         <result column="super_id" property="superId"></result>
     </resultMap>
