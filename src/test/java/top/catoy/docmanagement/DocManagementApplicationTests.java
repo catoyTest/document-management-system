@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.catoy.docmanagement.domain.Department;
+import top.catoy.docmanagement.domain.DocInfo;
 import top.catoy.docmanagement.domain.Log;
 import top.catoy.docmanagement.mapper.DepartmentMapper;
 import top.catoy.docmanagement.mapper.LogMapper;
+import top.catoy.docmanagement.service.DocInfoService;
 import top.catoy.docmanagement.service.LogService;
 
 import java.util.List;
@@ -24,6 +26,10 @@ public class DocManagementApplicationTests {
 
     @Autowired
     private LogService logService;
+
+
+    @Autowired
+    private DocInfoService docInfoService;
 
     @Test
     public void contextLoads() {
@@ -62,6 +68,27 @@ public class DocManagementApplicationTests {
         departmentMapper.insertDepartment(department);
         departmentMapper.insertDepartment(department1);
         System.out.println("得到所有部门信息"+departmentMapper.getAllDepartments().toString());
+    }
+
+
+    @Test
+    public void insertDocInfo(){
+        DocInfo docInfo = new DocInfo();
+        docInfo.setDocId(4);
+        docInfo.setDocName("水浒");
+        docInfo.setDocSavePath("d://sxito");
+        docInfo.setSuffixName(".txt");
+        docInfo.setUserId(2);
+        docInfoService.insertDocInfo(docInfo);
+    }
+
+
+
+
+
+    @Test
+    public void CreateTag(){
+
     }
 
 }
