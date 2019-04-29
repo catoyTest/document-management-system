@@ -4,8 +4,16 @@
         "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.catoy.docmanagement.mapper.DocInfoMapper">
     <resultMap id="DocInfoMap" type="top.catoy.docmanagement.domain.DocInfo">
-
-
+        <id column="doc_id" property="docId"></id>
+        <result column="doc_name" property="docName"></result>
+        <result column="doc_savepath" property="docSavePath"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="suffix_name" property="suffixName"></result>
     </resultMap>
+
+    <insert id="insertDocInfo" parameterType="top.catoy.docmanagement.domain.DocInfo">
+        INSERT INTO docInfo(doc_name,doc_savepath,user_id,suffix_name) VALUES(##{docName},#{docSavePath},#{userId},#{suffixName});
+    </insert>
+
 
 </mapper>
