@@ -11,7 +11,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.catoy.docmanagement.database.UserBean;
-import top.catoy.docmanagement.database.UserService;
+import top.catoy.docmanagement.service.UserService;
+import top.catoy.docmanagement.domain.User;
 import top.catoy.docmanagement.utils.JWTUtil;
 
 import java.util.Arrays;
@@ -23,6 +24,7 @@ public class MyRealm extends AuthorizingRealm {
 
     private static final Logger LOGGER = LogManager.getLogger(MyRealm.class);
 
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -44,8 +46,12 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        System.out.println("————权限认证————");
         String username = JWTUtil.getUsername(principals.toString());
-        UserBean user = userService.getUser(username);
+
+        User user = JWTUtil.getUserInfo(principals.toString());
+//        UserBean user = userService.getUser(username);
+        System.out.println(user+"-------------------------------------------------");
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.addRole(user.getRole());
         Set<String> permission = new HashSet<>(Arrays.asList(user.getPermission().split(",")));
@@ -60,6 +66,7 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
+        System.out.println("————身份认证方法————");
         String token = (String) auth.getCredentials();
         // 解密获得username，用于和数据库进行对比
         String username = JWTUtil.getUsername(token);
@@ -67,12 +74,13 @@ public class MyRealm extends AuthorizingRealm {
             throw new AuthenticationException("token invalid");
         }
 
-        UserBean userBean = userService.getUser(username);
-        if (userBean == null) {
+        User user = userService.getUserByName(username);
+//        UserBean userBean = userService.getUserByName(username);
+        if (user == null) {
             throw new AuthenticationException("User didn't existed!");
         }
 
-        if (! JWTUtil.verify(token, username, userBean.getPassword())) {
+        if (! JWTUtil.verify(token, username, user.getUserPassword())) {
             throw new AuthenticationException("Username or password error");
         }
         System.out.println("执行认证");

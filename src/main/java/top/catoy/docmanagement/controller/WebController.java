@@ -44,7 +44,6 @@ public class WebController {
         if(result.getMsg().equals("登录成功")){
             String token = JWTUtil.sign((User) result.getData(),password);
             System.out.println(JWTUtil.getUserInfo(token));
-
             return new ResponseBean(ResponseBean.SUCCESS, "Login success", JWTUtil.sign((User) result.getData(), password));
         }else {
             return new ResponseBean(ResponseBean.FAILURE,"登录失败",null);

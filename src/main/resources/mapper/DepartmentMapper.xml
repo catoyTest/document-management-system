@@ -10,6 +10,7 @@
         <result column="department_name" property="departmentName"></result>
         <result column="super_id" property="superId"></result>
     </resultMap>
+    <delete id="deleteDepartmentById"></delete>
 
     <select id="getAllDepartments" resultMap="DepartmentMap">
         SELECT * FROM department
