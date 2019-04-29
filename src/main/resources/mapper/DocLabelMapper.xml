@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.catoy.docmanagement.mapper.DocLabelMapper">
+
+    <resultMap id="DocLabelMap" type="DocLabel">
+        <id column="id" property="id"></id>
+        <result column="docLabel_id" property="docLabelId"></result>
+        <result column="docLabel_name" property="docLabelName"></result>
+        <result column="super_id" property="superId"></result>
+    </resultMap>
+
+    <select id="getAllDocLabels" resultMap="DocLabelMap">
+        SELECT * FROM docLabel
+    </select>
+
+    <select id="getDocLabelById" parameterType="int" resultMap="DocLabelMap">
+        SELECT * FROM docLabel WHERE docLabel_id=#{id}
+    </select>
+
+    <select id="getDocLabelBySuperId" parameterType="int" resultMap="DocLabelMap">
+        SELECT * FROM docLabel WHERE super_id=#{superId}
+    </select>
+
+    <insert id="insertLabel" parameterType="DocLabel" useGeneratedKeys="true" keyProperty="docLabelId">
+        INSERT INTO docLabel(docLabel_name,super_id) VALUES(#{docLabelName},#{superId})
+    </insert>
+
+    <!--<delete id="delDocLabelByName" parameterType="String">-->
+        <!--DELETE FROM docLabel WHREE docLabel_name=#{docLabelName}-->
+    <!--</delete>-->
+
+    <delete id="delDocLabel" parameterType="DocLabel">
+        DELETE FROM docLabel WHERE docLabel_id=#{docLabelId}
+    </delete>
+
+    <update id="editDocLabel">
+        UPDATE
+            docLabel
+        SET
+            docLabel_name=#{docLabelName},
+            super_id=#{superId}
+        WHERE
+            docLabel_id=#{docLabelId}
+    </update>
+
+
+</mapper>

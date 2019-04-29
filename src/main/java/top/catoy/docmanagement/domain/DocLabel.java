@@ -5,7 +5,7 @@ package top.catoy.docmanagement.domain;
  * @author: xjn
  * @create: 2019-04-26 08:58
  **/
-public class docLabel {
+public class DocLabel {
     private int docLabelId;
     private String docLabelName;
     private int superId;
@@ -36,7 +36,7 @@ public class docLabel {
 
     @Override
     public String toString() {
-        return "docLabel{" +
+        return "DocLabel{" +
                 "docLabelId=" + docLabelId +
                 ", docLabelName='" + docLabelName + '\'' +
                 ", superId=" + superId +
